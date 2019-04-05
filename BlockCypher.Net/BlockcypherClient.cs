@@ -3,6 +3,7 @@ using BlockCypher.Net.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Net;
+using System.Transactions;
 
 namespace BlockCypher.Net
 {
@@ -18,7 +19,9 @@ namespace BlockCypher.Net
         #region Endpoints
         private const string AddressBalanceEndpoint = "addrs/{}/balance";
         private const string AddressEndpoint = "addrs/{}";
-        
+        private const string AddressFullEndpoint = "addrs/{}/full";
+
+
         #endregion
         public BlockcypherClient(string currency, string net="main", string version="v1")
         {
@@ -55,6 +58,16 @@ namespace BlockCypher.Net
         {
             string url = FillPathParameter(GetRequestUrl(AddressEndpoint), address);
             return GetResult<AddressInfo>(url);
+        }
+
+        public AddressFullInfo GetFullAddressInfo(string address)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Transaction GetFullTransaction(string txId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
