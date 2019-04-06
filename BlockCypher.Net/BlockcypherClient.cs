@@ -2,6 +2,8 @@
 using BlockCypher.Net.Interfaces;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Transactions;
 
@@ -53,7 +55,11 @@ namespace BlockCypher.Net
             }
             return path;
         }
-
+        private string ConstructRequest(string url, Dictionary<string, object> parameters)
+        {            
+            string requestUrl = url+"?" + string.Join("&", parameters.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)));
+            return requestUrl;
+        }
         public AddressInfo GetAddressInfo(string address)
         {
             string url = FillPathParameter(GetRequestUrl(AddressEndpoint), address);
@@ -62,7 +68,15 @@ namespace BlockCypher.Net
 
         public AddressFullInfo GetFullAddressInfo(string address, int? before = null, int? after = null, int? limit = null, int? confirmations = null)
         {
-            string url = FillPathParameter(GetRequestUrl(AddressFullEndpoint), address);
+            var parameters = new Dictionary<string, object>()
+            {
+                {"before", before},
+                {"after",  after},
+                {"limit",  limit},
+                {"confirmations",  confirmations}
+            };
+            string url = ConstructRequest(FillPathParameter(GetRequestUrl(AddressFullEndpoint), address),parameters);
+
             return GetResult<AddressFullInfo>(url);
         }
 
