@@ -12,7 +12,7 @@ namespace BlockCypher.ConcoleApp
             string[] addresses = new string[] { "3CcF942kYVRotGrfYQxD4QNn4aKVywpRxb" };
             foreach (var a in addresses)
             {
-                var result = client.GetFullAddressInfo(a, 570300, 570200, 50);
+                var result = client.GetFullAddressInfo(a, 565000);
                 File.WriteAllText($"C:\\blockzi\\{a}.json", JsonConvert.SerializeObject(result));
             }
         }

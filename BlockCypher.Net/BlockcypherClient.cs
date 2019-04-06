@@ -66,15 +66,18 @@ namespace BlockCypher.Net
             return GetResult<AddressInfo>(url);
         }
 
-        public AddressFullInfo GetFullAddressInfo(string address, int? before = null, int? after = null, int? limit = null, int? confirmations = null)
+        public AddressFullInfo GetFullAddressInfo(string address, int? before = null, int? after = null, int? limit = 50, int? confirmations = null)
         {
             var parameters = new Dictionary<string, object>()
             {
-                {"before", before},
-                {"after",  after},
                 {"limit",  limit},
-                {"confirmations",  confirmations}
+          
             };
+            if (before.HasValue)
+                parameters.Add("before", before);
+            if (after.HasValue)
+                parameters.Add("after", after);
+                
             string url = ConstructRequest(FillPathParameter(GetRequestUrl(AddressFullEndpoint), address),parameters);
 
             return GetResult<AddressFullInfo>(url);
