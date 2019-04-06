@@ -60,9 +60,10 @@ namespace BlockCypher.Net
             return GetResult<AddressInfo>(url);
         }
 
-        public AddressFullInfo GetFullAddressInfo(string address)
+        public AddressFullInfo GetFullAddressInfo(string address, int? before = null, int? after = null, int? limit = null, int? confirmations = null)
         {
-            throw new NotImplementedException();
+            string url = FillPathParameter(GetRequestUrl(AddressFullEndpoint), address);
+            return GetResult<AddressFullInfo>(url);
         }
 
         public Transaction GetFullTransaction(string txId)

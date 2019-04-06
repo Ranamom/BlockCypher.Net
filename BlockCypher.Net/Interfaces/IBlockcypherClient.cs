@@ -1,7 +1,4 @@
 ﻿using BlockCypeher.Objects;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Transactions;
 
 namespace BlockCypher.Net.Interfaces
@@ -9,8 +6,7 @@ namespace BlockCypher.Net.Interfaces
     public interface IBlockcypherClient
     {
         AddressInfo GetAddressInfo(string address);
-        AddressFullInfo GetFullAddressInfo(string address);
-
+        AddressFullInfo GetFullAddressInfo(string address, int? before = null, int? after = null, int? limit = null, int? confirmations = null);
         Transaction GetFullTransaction(string txId);
     }
 }
